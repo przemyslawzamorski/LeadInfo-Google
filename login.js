@@ -28,11 +28,6 @@ function add_serwer() {
         console.log(server_name);
         check_server();
         $("#load_assign_gif").css("display", "none");
-        var index = window.serwer.indexOf("/");
-        index = index + 1;
-        window.header = window.serwer.substr(0, index);
-        window.rest_url = window.serwer.substr(index + 1);
-
 
     } else {
         $.ajax({
@@ -62,10 +57,7 @@ function add_serwer() {
                     localStorage.setItem("server_name", server_name);
                     check_server();
                     $("#load_assign_gif").css("display", "none");
-                    var index = window.serwer.indexOf("/");
-                    index = index + 1;
-                    window.header = window.serwer.substr(0, index);
-                    window.rest_url = window.serwer.substr(index + 1);
+
 
 
                 } else {
@@ -113,6 +105,14 @@ function back_to_login() {
 
 function log_in() {
 
+    /*pobranie serwera*/
+    window.serwer = localStorage.getItem("server");
+
+    var index = window.serwer.indexOf("/");
+    index = index + 1;
+    window.header = window.serwer.substr(0, index);
+    window.rest_url = window.serwer.substr(index + 1);
+
     window.login_data = $("#login_form").serializeArray();
     window.username = login_data[0].value.toUpperCase();
     window.password = login_data[1].value;
@@ -143,6 +143,7 @@ function log_in() {
         error: function (xhr, err) {
             console.log("nie autoryzowano");
             $("#login_error").css("display", "block");
+
 
             $("#password").val('');
             $("#username").val('');
