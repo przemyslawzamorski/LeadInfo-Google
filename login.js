@@ -128,7 +128,7 @@ function log_in() {
         async: true,
         crossOrigin: true,
         dataType: "json",
-        url: window.header + window.username + ":" + window.password + "@" + window.rest_url + "/rin/mob_leady?resultsPerPage=100",
+        url: window.header + window.username + ":" + window.password + "@" + window.rest_url + "/rin/mob_leady?resultsPerPage=100&forceRefresh",
         data: {},
 
         beforeSend: load_start(),
