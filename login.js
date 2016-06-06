@@ -20,6 +20,7 @@ function add_serwer() {
     window.serwer_data = $("#serwer_form").serializeArray();
     /*nazwa serwera*/
     var server_name = serwer_data[0].value;
+    server_name = server_name.toLowerCase();
 
 
     if (server_name.indexOf("https://") > -1) {

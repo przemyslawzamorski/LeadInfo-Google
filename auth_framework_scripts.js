@@ -47,19 +47,24 @@ function time_difference(time_given) {
 
     var leed_date = time_given;
     leed_date = leed_date.split(/(?:-| |:)+/);
-    var lead_time = new Date(leed_date[0], leed_date[1], leed_date[2],
+    var correct_month = leed_date[1] -1;
+    var lead_time = new Date(leed_date[0], correct_month, leed_date[2],
         leed_date[3], leed_date[4], leed_date[5]);
-    var current_time = new Date().getTime();
+    var current_time = new Date(Date.now());
     var diffMs = (lead_time - current_time );
-    var diffDays = Math.round(diffMs / 86400000) - 31;
-    var diffHrs = Math.round((diffMs % 86400000) / 3600000);
-    var diffMins = Math.round(((diffMs % 86400000) % 3600000) / 60000);
-    if (diffDays != 0) {
-        var time_status = diffDays + " dni";
-    } else if (diffDays == 0 && diffHrs != 0) {
-        var time_status = diffHrs + " godzin";
+
+    var diffSeconds = diffMs / 1000;
+    var HH = diffSeconds / 3600;
+    var MM = (diffSeconds % 3600) / 60;
+    var DD = HH / 24 ;
+    console.log(DD+''+HH +' '+MM);
+
+    if (DD != 0) {
+        var time_status = parseInt(DD) + " dni";
+    } else if (DD == 0 && HH != 0) {
+        var time_status = parseInt(HH) + " godzin";
     } else {
-        var time_status = diffMins + " minut";
+        var time_status = parseInt(MM) + " minut";
     }
     return time_status;
 }
