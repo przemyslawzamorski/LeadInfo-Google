@@ -66,24 +66,33 @@ function render_leeds_in_place(data, destination) {
 
     /*czyszczenie i dodawania zawarotsci leedow*/
     $("#" + destination).empty();
-    console.log("wszedl");
     if (data.length == 0) {
         switch (destination) {
             case "new-leads":
-                $("#" + destination).append("<td class='status-cell red-background' ><i class='fa fa-exclamation-triangle'></i></td><td>Brak nowych leadow</td>");
+                $("#" + destination).append("<div id='no-new'><div class='col-xs-1 col-sm-1 red-background no-side-padding' style='text-align: center; vertical-align:middle;' ><i class='fa fa-exclamation-triangle' ></i></div>" +
+                "<div class='col-sm-4 col-xs-4 text' style='color: #000000; ; '>Brak nowych leadow</div></div>");
+                var divHeight = $("#no-new .text").height();
+                $("#no-new .red-background").css('min-height', divHeight + 'px');
                 break;
             case "open-no-attribution":
-                $("#" + destination).append("<td class='status-cell yellow-background' ><i class='fa fa-exclamation-triangle'></i></td><td>Brak otwartch nieprzypisanych leadow</td>");
+                $("#" + destination).append("<div id='no-att'><div class='col-xs-1 col-sm-1 yellow-background no-side-padding' style='text-align: center; vertical-align:middle;' ><i class='fa fa-exclamation-triangle' ></i></div>" +
+                "<div class='col-sm-4 col-xs-4 text' style='color: #000000; ; '>Brak otwartch nieprzypisanych leadow</div></div>");
+                var divHeight = $("#no-att .text").height();
+                $("#no-att .yellow-background").css('min-height', divHeight + 'px');
                 break;
             case "my-leeds":
-                $("#" + destination).append("<td class='status-cell green-background' ><i class='fa fa-exclamation-triangle'></i></td><td>Brak twoich otwartych leadow</td>");
+                $("#" + destination).append("<div id='my-lee'><div class='col-xs-1 col-sm-1 green-background no-side-padding' style='text-align: center; vertical-align:middle;' ><i class='fa fa-exclamation-triangle' ></i></div>" +
+                "<div class='col-sm-4 col-xs-4 text' style='color: #000000; ; '>Brak twoich otwartych leadow</div></div>");
+                var divHeight = $("#my-lee .text").height();
+                $("#my-lee .green-background").css('min-height', divHeight + 'px');
                 break;
         }
     }
     else {
         for (var i = 0; i < data.length; i++) {
             /*tworzenie wiersza z opcją klikania na niego i wyswietlania info szczeolowych */
-            $('<tr>', {id: data[i].LEADID}).appendTo('#' + destination);
+            $('<div>', {id: data[i].LEADID}).appendTo('#' + destination);
+            $("#" + data[i].LEADID).addClass("lead-row");
             $("#" + data[i].LEADID).attr("onclick", "get_lead_info(this.id)");
             $("#" + data[i].LEADID).attr("data-toggle", "modal");
             $("#" + data[i].LEADID).attr("data-target", "#leedsTable");
