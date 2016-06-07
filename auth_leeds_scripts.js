@@ -97,6 +97,10 @@ function render_leeds_in_place(data, destination) {
             $("#" + data[i].LEADID).attr("data-toggle", "modal");
             $("#" + data[i].LEADID).attr("data-target", "#leedsTable");
 
+            if ((i%2)==0){
+                $("#" + data[i].LEADID).css("background-color","#f3f1f3");
+            }
+
             /*dodawanie statusu nowy otwary lub mój*/
             switch (destination) {
                 case "new-leads":
