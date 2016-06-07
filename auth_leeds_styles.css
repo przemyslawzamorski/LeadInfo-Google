@@ -223,3 +223,7 @@ button {
 table{
     background-color: #ffffff; !important;
 }
+
+.lead-row{
+    min-height: 20px;
+}
