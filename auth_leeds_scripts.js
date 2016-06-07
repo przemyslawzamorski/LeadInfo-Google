@@ -104,13 +104,13 @@ function render_leeds_in_place(data, destination) {
             /*dodawanie statusu nowy otwary lub mój*/
             switch (destination) {
                 case "new-leads":
-                    $("#" + data[i].LEADID).append("<div class='col-xs-1 col-sm-1 red-background no-side-padding' style='text-align: center; vertical-align:middle;' ><i class='fa fa-exclamation-triangle' ></i></div>");
+                    $("#" + data[i].LEADID).append("<div class='col-xs-1 col-sm-1 red-background no-side-padding' style='text-align: center; ' ><i class='fa fa-exclamation-triangle' ></i></div>");
                     break;
                 case "open-no-attribution":
-                    $("#" + data[i].LEADID).append("<div class='col-xs-1 col-sm-1 yellow-background no-side-padding' style='text-align: center; vertical-align:middle;' ><i class='fa fa-exclamation-triangle' ></i></div>");
+                    $("#" + data[i].LEADID).append("<div class='col-xs-1 col-sm-1 yellow-background no-side-padding' style='text-align: center; ' ><i class='fa fa-exclamation-triangle' ></i></div>");
                     break;
                 case "my-leeds":
-                    $("#" + data[i].LEADID).append("<div class='col-xs-1 col-sm-1 green-background no-side-padding' style='text-align: center; vertical-align:middle;' ><i class='fa fa-exclamation-triangle' ></i></div>");
+                    $("#" + data[i].LEADID).append("<div class='col-xs-1 col-sm-1 green-background no-side-padding' style='text-align: center; ' ><i class='fa fa-exclamation-triangle' ></i></div>");
                     break;
             }
 
@@ -119,6 +119,7 @@ function render_leeds_in_place(data, destination) {
 
             var divHeight = $("#" + data[i].LEADID + " .brake-lines").height()+10;
             $("#" + data[i].LEADID + " .no-side-padding").css('min-height', divHeight + 'px');
+            $("#" + data[i].LEADID + " .no-side-padding").css('padding-top', (divHeight-14)/2 + 'px');
 
 
             /*dodawanie kolejnego kroku oraz czasu ktory pozostał*/
