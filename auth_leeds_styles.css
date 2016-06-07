@@ -224,6 +224,18 @@ table{
     background-color: #ffffff; !important;
 }
 
+/*nowe stajle*/
+.text{
+
+    color: #000000;
+}
+
 .lead-row{
-    min-height: 20px;
+    margin: 0px 0px 0px 0px;
+
+}
+
+.up5padd{
+    padding-top: 5px;
+    padding-bottom: 5px;
 }

@@ -70,19 +70,19 @@ function render_leeds_in_place(data, destination) {
         switch (destination) {
             case "new-leads":
                 $("#" + destination).append("<div id='no-new'><div class='col-xs-1 col-sm-1 red-background no-side-padding' style='text-align: center; vertical-align:middle;' ><i class='fa fa-exclamation-triangle' ></i></div>" +
-                "<div class='col-sm-4 col-xs-4 text' style='color: #000000; ; '>Brak nowych leadow</div></div>");
+                "<div class='col-sm-4 col-xs-4 text'>Brak nowych leadow</div></div>");
                 var divHeight = $("#no-new .text").height();
                 $("#no-new .red-background").css('min-height', divHeight + 'px');
                 break;
             case "open-no-attribution":
                 $("#" + destination).append("<div id='no-att'><div class='col-xs-1 col-sm-1 yellow-background no-side-padding' style='text-align: center; vertical-align:middle;' ><i class='fa fa-exclamation-triangle' ></i></div>" +
-                "<div class='col-sm-4 col-xs-4 text' style='color: #000000; ; '>Brak otwartch nieprzypisanych leadow</div></div>");
+                "<div class='col-sm-4 col-xs-4 text' >Brak otwartch nieprzypisanych leadow</div></div>");
                 var divHeight = $("#no-att .text").height();
                 $("#no-att .yellow-background").css('min-height', divHeight + 'px');
                 break;
             case "my-leeds":
                 $("#" + destination).append("<div id='my-lee'><div class='col-xs-1 col-sm-1 green-background no-side-padding' style='text-align: center; vertical-align:middle;' ><i class='fa fa-exclamation-triangle' ></i></div>" +
-                "<div class='col-sm-4 col-xs-4 text' style='color: #000000; ; '>Brak twoich otwartych leadow</div></div>");
+                "<div class='col-sm-4 col-xs-4 text' >Brak twoich otwartych leadow</div></div>");
                 var divHeight = $("#my-lee .text").height();
                 $("#my-lee .green-background").css('min-height', divHeight + 'px');
                 break;
@@ -92,7 +92,7 @@ function render_leeds_in_place(data, destination) {
         for (var i = 0; i < data.length; i++) {
             /*tworzenie wiersza z opcją klikania na niego i wyswietlania info szczeolowych */
             $('<div>', {id: data[i].LEADID}).appendTo('#' + destination);
-            $("#" + data[i].LEADID).addClass("row no-padding");
+            $("#" + data[i].LEADID).addClass("row lead-row");
             $("#" + data[i].LEADID).attr("onclick", "get_lead_info(this.id)");
             $("#" + data[i].LEADID).attr("data-toggle", "modal");
             $("#" + data[i].LEADID).attr("data-target", "#leedsTable");
@@ -111,9 +111,9 @@ function render_leeds_in_place(data, destination) {
             }
 
             /*dodawanie id leada oraz nazwy od kogo  */
-            $("#" + data[i].LEADID).append("<div class='col-xs-4 col-sm-4 brake-lines ' >" + data[i].LEADID + "</br>" + data[i].FIRSTNAME + " " + data[i].LASTNAME + +"</div>");
+            $("#" + data[i].LEADID).append("<div class='col-xs-4 col-sm-4 brake-lines text up5padd' >" + data[i].LEADID + "</br>" + data[i].FIRSTNAME + " " + data[i].LASTNAME + +"</div>");
 
-            var divHeight = $("#" + data[i].LEADID + " .brake-lines").height();
+            var divHeight = $("#" + data[i].LEADID + " .brake-lines").height()+10;
             $("#" + data[i].LEADID + " .no-side-padding").css('min-height', divHeight + 'px');
 
 
@@ -136,13 +136,13 @@ function render_leeds_in_place(data, destination) {
 
 function render_date(object_data, date, status) {
 
-    $("#" + object_data.LEADID).append("<div class='col-xs-3 col-sm-3' >" + status + "</div>");
+    $("#" + object_data.LEADID).append("<div class='col-xs-3 col-sm-3 text up5padd' >" + status + "</div>");
     var time = time_difference(date);
 
     if (time_difference_number(date) >= 0) {
-        $("#" + object_data.LEADID).append("<div class='col-xs-4 col-sm-4' >" + time + "</div>");
+        $("#" + object_data.LEADID).append("<div class='col-xs-4 col-sm-4 text up5padd' >" + time + "</div>");
     } else {
-        $("#" + object_data.LEADID).append("<div class='warning col-xs-4 col-sm-4' >" + time.replace("-", "") + " przekroczono</div>");
+        $("#" + object_data.LEADID).append("<div class='warning col-xs-4 col-sm-4 up5padd' >" + time.replace("-", "") + " przekroczono</div>");
     }
 }
 
