@@ -21,7 +21,7 @@ function log_out() {
                     $("#username").val('');
                     window.my_leeds = '';
                     window.new_leads = '';
-                    window.open_with  = '';
+                    window.open_with = '';
                     window.user = '';
                     window.usr_short = '';
                     window.object = '';

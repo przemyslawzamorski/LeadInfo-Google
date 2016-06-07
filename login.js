@@ -47,7 +47,6 @@ function add_serwer() {
                     if (server_name_upper == kontrahents[i].getElementsByTagName("kod")[0].innerHTML) {
                         url_port = kontrahents[i].getElementsByTagName("port")[0].innerHTML;
                     }
-
                 }
 
                 /*jezelei istnieje taki kod to*/
@@ -60,13 +59,10 @@ function add_serwer() {
                     $("#load_assign_gif").css("display", "none");
 
 
-
                 } else {
                     $("#no_server").css("display", "block");
 
                 }
-
-
             },
             error: function (xhr, err) {
                 $("#server_error").css("display", "block");
@@ -75,13 +71,6 @@ function add_serwer() {
         });
     }
 
-
-    /*check_server();
-     $("#load_assign_gif").css("display", "none");
-     var index = window.serwer.indexOf("/");
-     index = index + 1;
-     window.header = window.serwer.substr(0, index);
-     window.rest_url = window.serwer.substr(index + 1);*/
 }
 
 function change_serwer() {

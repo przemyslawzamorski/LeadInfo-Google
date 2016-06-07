@@ -5,7 +5,7 @@ function get_date_type(asyncvalue, type, succesfunction, errorfunction) {
     $.ajax({
         type: 'GET',
         async: asyncvalue,
-        url: window.serwer+"/rin/" + type,
+        url: window.serwer + "/rin/" + type,
         processData: true,
         data: {},
         crossDomain: true,
@@ -23,7 +23,7 @@ function get_date_type(asyncvalue, type, succesfunction, errorfunction) {
 function execute_given_operation(operation, operation_data, succes_function, error_function, complete_function, done_function) {
     $.ajax({
         async: true,
-        url: window.serwer+"/ope/" + operation,
+        url: window.serwer + "/ope/" + operation,
         method: "POST",
         dataType: 'json',
         data: operation_data,
@@ -47,7 +47,7 @@ function time_difference(time_given) {
 
     var leed_date = time_given;
     leed_date = leed_date.split(/(?:-| |:)+/);
-    var correct_month = leed_date[1] -1;
+    var correct_month = leed_date[1] - 1;
     var lead_time = new Date(leed_date[0], correct_month, leed_date[2],
         leed_date[3], leed_date[4], leed_date[5]);
     var current_time = new Date(Date.now());
@@ -56,8 +56,8 @@ function time_difference(time_given) {
     var diffSeconds = diffMs / 1000;
     var HH = diffSeconds / 3600;
     var MM = (diffSeconds % 3600) / 60;
-    var DD = HH / 24 ;
-    console.log(DD+''+HH +' '+MM);
+    var DD = HH / 24;
+    console.log(DD + '' + HH + ' ' + MM);
 
     if (DD != 0) {
         var time_status = parseInt(DD) + " dni";
