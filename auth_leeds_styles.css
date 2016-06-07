@@ -35,31 +35,7 @@ th {
     color: white !important;
 }
 
-.pagination-button {
-    margin: 3px 3px 3px 3px;
-    background-color: #6EB6E7 !important;
-    color: white !important;
-}
 
-.pagination-button-active {
-    margin: 3px 3px 3px 3px;
-
-    background-color: #3C8CC3 !important;
-    color: white !important;
-}
-
-.pagination-dots {
-    margin: 3px 3px 3px 3px;
-    background-color: white !important;
-    border: none !important;
-    color: black !important;
-}
-
-.pagination-inner {
-    padding-top: 5px !important;
-    padding-bottom: 5px !important;
-    text-align: right !important;
-}
 
 button {
 

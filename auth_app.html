@@ -37,6 +37,8 @@
 
 
 <div id="leeds-content" style="background-color: #ffffff !important; min-height: 100vh !important;">
+
+
     <!--leads header-->
     <div class="row no-padding">
         <div class="col-md-6 col-lg-6 col-sm-6 col-xs-7" style="padding-left: 3px !important; ">
@@ -57,15 +59,23 @@
     </div>
 
 
-    <!-- leeds table -->
-    <table id="main-content" style="background-color: #ffffff; width: 100%;">
-        <tr>
-            <th class="col32px"></th>
-            <th class="col40">Numer lead</th>
-            <th class="col30">Kolejny krok</th>
-            <th class="col30">Pozostało</th>
-        </tr>
-    </table>
+    <div class="row no-padding" style=" background-color: #4CAF50 !important; color: white !important; vertical-align: middle; ">
+        <div class="col-xs-1 col-sm-1" style="padding: 0px 10px 5px 10px; text-align: left ; font-weight: bold;">
+        </div>
+        <div class="col-xs-4 col-sm-4" style="padding: 0px 10px 5px 10px; text-align: left ; font-weight: bold;">
+            Numer lead
+        </div>
+        <div class="col-xs-3 col-sm-3" style="padding: 0px 10px 5px 10px; text-align: left ; font-weight: bold;">
+            Kolejny Krok
+        </div>
+        <div class="col-xs-4 col-sm-4" style="padding: 0px 10px 5px 10px; text-align: left ; font-weight: bold;">
+            Pozostało
+        </div>
+
+    </div>
+
+
+   
 
 
     <table id="new-leads" style="background-color: #ffffff; width: 100%;">
@@ -203,10 +213,10 @@
                 .change();
 
 
-		$(function(){
-				$('#comment').autosize();
+        $(function () {
+            $('#comment').autosize();
 
-			});
+        });
 
 
     });
