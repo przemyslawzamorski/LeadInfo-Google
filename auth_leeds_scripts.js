@@ -76,14 +76,12 @@ function render_leeds_in_place(data, destination) {
             case "open-no-attribution":
                 $("#" + destination).append("<div id='no-att'><div class='col-xs-1 col-sm-1 yellow-background no-side-padding' style='text-align: center; vertical-align:middle;' ><i class='fa fa-exclamation-triangle' ></i></div>" +
                 "<div class='col-sm-4 col-xs-4 text' >Brak otwartch nieprzypisanych leadow</div></div>");
-                var divHeight = $("#no-att .text").height();
-                $("#no-att .yellow-background").css('min-height', divHeight + 'px');
+
                 break;
             case "my-leeds":
                 $("#" + destination).append("<div id='my-lee'><div class='col-xs-1 col-sm-1 green-background no-side-padding' style='text-align: center; vertical-align:middle;' ><i class='fa fa-exclamation-triangle' ></i></div>" +
                 "<div class='col-sm-4 col-xs-4 text' >Brak twoich otwartych leadow</div></div>");
-                var divHeight = $("#my-lee .text").height();
-                $("#my-lee .green-background").css('min-height', divHeight + 'px');
+
                 break;
         }
     }
@@ -91,34 +89,30 @@ function render_leeds_in_place(data, destination) {
         for (var i = 0; i < data.length; i++) {
             /*tworzenie wiersza z opcją klikania na niego i wyswietlania info szczeolowych */
             $('<div>', {id: data[i].LEADID}).appendTo('#' + destination);
-            $("#" + data[i].LEADID).addClass("row lead-row");
+            $("#" + data[i].LEADID).addClass("row lead-row row-flex row-flex-wrap");
             $("#" + data[i].LEADID).attr("onclick", "get_lead_info(this.id)");
             $("#" + data[i].LEADID).attr("data-toggle", "modal");
             $("#" + data[i].LEADID).attr("data-target", "#leedsTable");
 
-            if ((i%2)==0){
-                $("#" + data[i].LEADID).css("background-color","#f3f1f3");
+            if ((i % 2) == 0) {
+                $("#" + data[i].LEADID).css("background-color", "#f3f1f3");
             }
 
             /*dodawanie statusu nowy otwary lub mój*/
             switch (destination) {
                 case "new-leads":
-                    $("#" + data[i].LEADID).append("<div class='col-xs-1 col-sm-1 red-background no-side-padding' style='display:; ' ><i class='fa fa-exclamation-triangle' ></i></div>");
+                    $("#" + data[i].LEADID).append("<div class='col-xs-1 col-sm-1  no-side-padding' style='text-align: center;'><div class='red-background'> <i class='fa fa-exclamation-triangle' ></i></div></div>");
                     break;
                 case "open-no-attribution":
-                    $("#" + data[i].LEADID).append("<div class='col-xs-1 col-sm-1 yellow-background no-side-padding' style='text-align: center; ' ><i class='fa fa-exclamation-triangle' ></i></div>");
+                    $("#" + data[i].LEADID).append("<div class='col-xs-1 col-sm-1  no-side-padding' style='text-align: center;'><div class='yellow-background' ><i class='fa fa-exclamation-triangle' ></i></div></div>");
                     break;
                 case "my-leeds":
-                    $("#" + data[i].LEADID).append("<div class='col-xs-1 col-sm-1 green-background no-side-padding' style='text-align: center; ' ><i class='fa fa-exclamation-triangle' ></i></div>");
+                    $("#" + data[i].LEADID).append("<div class='col-xs-1 col-sm-1  no-side-padding' style='text-align: center;'><div class='green-background'><i class='fa fa-exclamation-triangle' ></i></div></div>");
                     break;
             }
 
             /*dodawanie id leada oraz nazwy od kogo  */
-            $("#" + data[i].LEADID).append("<div class='col-xs-4 col-sm-4 brake-lines text up5padd' >" + data[i].LEADID + "</br>" + data[i].FIRSTNAME + " " + data[i].LASTNAME + +"</div>");
-
-            var divHeight = $("#" + data[i].LEADID + " .brake-lines").height()+10;
-            $("#" + data[i].LEADID + " .no-side-padding").css('min-height', divHeight + 'px');
-            $("#" + data[i].LEADID + " .no-side-padding").css('padding-top', (divHeight-14)/2 + 'px');
+            $("#" + data[i].LEADID).append("<div class='col-xs-4 col-sm-4 brake-lines text up5padd' ><div>" + data[i].LEADID + "</br>" + data[i].FIRSTNAME + " " + data[i].LASTNAME + +"</div></div>");
 
 
             /*dodawanie kolejnego kroku oraz czasu ktory pozostał*/
@@ -140,13 +134,13 @@ function render_leeds_in_place(data, destination) {
 
 function render_date(object_data, date, status) {
 
-    $("#" + object_data.LEADID).append("<div class='col-xs-3 col-sm-3 text up5padd' >" + status + "</div>");
+    $("#" + object_data.LEADID).append("<div class='col-xs-3 col-sm-3 text up5padd' ><div >" + status + "</div></div>");
     var time = time_difference(date);
 
     if (time_difference_number(date) >= 0) {
-        $("#" + object_data.LEADID).append("<div class='col-xs-4 col-sm-4 text up5padd' >" + time + "</div>");
+        $("#" + object_data.LEADID).append("<div class='col-xs-4 col-sm-4 text up5padd' ><div >" + time + "</div></div>");
     } else {
-        $("#" + object_data.LEADID).append("<div class='warning col-xs-4 col-sm-4 up5padd' >" + time.replace("-", "") + " przekroczono</div>");
+        $("#" + object_data.LEADID).append("<div class='warning col-xs-4 col-sm-4 up5padd' ><div >" + time.replace("-", "") + " przekroczono</div></div>");
     }
 }
 
