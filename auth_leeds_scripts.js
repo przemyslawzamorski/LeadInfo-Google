@@ -69,10 +69,9 @@ function render_leeds_in_place(data, destination) {
     if (data.length == 0) {
         switch (destination) {
             case "new-leads":
-                $("#" + destination).append("<div id='no-new'><div class='col-xs-1 col-sm-1 red-background no-side-padding' style='text-align: center; vertical-align:middle;' ><i class='fa fa-exclamation-triangle' ></i></div>" +
-                "<div class='col-sm-4 col-xs-4 text'>Brak nowych leadow</div></div>");
-                var divHeight = $("#no-new .text").height();
-                $("#no-new .red-background").css('min-height', divHeight + 'px');
+                $("#" + destination).append("<div id='no-new' style='display: flex;'><div class='col-xs-1 col-sm-1 red-background no-side-padding' style='text-align: center; vertical-align:middle; flex: 1;' ><i class='fa fa-exclamation-triangle' ></i></div>" +
+                "<div class='col-sm-4 col-xs-4 text' style='flex: 1;'>Brak nowych leadow</div></div>");
+
                 break;
             case "open-no-attribution":
                 $("#" + destination).append("<div id='no-att'><div class='col-xs-1 col-sm-1 yellow-background no-side-padding' style='text-align: center; vertical-align:middle;' ><i class='fa fa-exclamation-triangle' ></i></div>" +
@@ -104,7 +103,7 @@ function render_leeds_in_place(data, destination) {
             /*dodawanie statusu nowy otwary lub mój*/
             switch (destination) {
                 case "new-leads":
-                    $("#" + data[i].LEADID).append("<div class='col-xs-1 col-sm-1 red-background no-side-padding' style='text-align: center; ' ><i class='fa fa-exclamation-triangle' ></i></div>");
+                    $("#" + data[i].LEADID).append("<div class='col-xs-1 col-sm-1 red-background no-side-padding' style='display:; ' ><i class='fa fa-exclamation-triangle' ></i></div>");
                     break;
                 case "open-no-attribution":
                     $("#" + data[i].LEADID).append("<div class='col-xs-1 col-sm-1 yellow-background no-side-padding' style='text-align: center; ' ><i class='fa fa-exclamation-triangle' ></i></div>");
