@@ -218,6 +218,11 @@ function get_lead_info(this_id) {
         $("#modal-content").append("<tr><td>" + object.OPIS_KAMPANII + "</td><tr>  ");
     }
 
+    if (object.MODEL1) {
+        $("#modal-content").append('<tr><td>  Dotyczy </td><td>' + object.MODEL1 + ' </td></tr>');
+    }
+
+
     /* //Dane kontaktowe //*/
     $("#modal-content").append('<tr><th class="normal-font"><i class="fa fa-bars"></i>  Dane kontaktowe </th><th>  </th></tr>');
 
@@ -310,6 +315,7 @@ function append_contact_info(data) {
 
 /*na wybor szablonu dodawanie szablonu do pola tekstowego wraz z  dodaniem stopki*/
 function append_email_content() {
+    get_and_add_templates();
     var button_content = $("#email-content-select option:selected").text();
     var email_template = $.grep(window.email_template, function (e) {
         return e.NAZWA == button_content;
@@ -335,6 +341,24 @@ function mod() {
     $('#callTemplate').modal('show')
 }
 
+/*pobiera i dodaje szablony*/
+function get_and_add_templates() {
+    get_date_type(true, "EML_DEF?rodzaj=L", function (data) {
+            console.log('szablon');
+            $("#email-content-select").empty();
+            window.email_template = data.results;
+            for (var i = 0; i < data.results.length; i++) {
+                var select_id = "template-select-" + i;
+                var selector = '<option  id=' + select_id + '>' + window.email_template[i].NAZWA + '</option>';
+                $("#email-content-select").append(selector);
+            }
+        }
+        , function () {
+            console.log("nie mozna zaladowac email templates");
+        });
+
+}
+
 /*funkcja wczytujaca wszystkie dane na strone:  usr , template email oraz renderuje leady */
 function load_and_render_page_data() {
     $("#my-leeds").append(' <div class="loader-inner"><img src="ajax-loader.gif" ></div>');
@@ -356,19 +380,7 @@ function load_and_render_page_data() {
 
 
     /*pobieram dane templetek email*/
-    get_date_type(true, "EML_DEF?rodzaj=L", function (data) {
-            $("#email-content-select").empty();
-            window.email_template = data.results;
-            for (var i = 0; i < data.results.length; i++) {
-                var select_id = "template-select-" + i;
-                var selector = '<option  id=' + select_id + '>' + window.email_template[i].NAZWA + '</option>';
-                $("#email-content-select").append(selector);
-                console.log("templetki");
-            }
-        }
-        , function () {
-            console.log("nie mozna zaladowac email templates");
-        });
+    get_and_add_templates();
 
     /*pobieram dane usera*/
     get_date_type(true, "usr_ja", function (data) {
