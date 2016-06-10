@@ -4,7 +4,7 @@
 <widget xmlns     = "http://www.w3.org/ns/widgets"
         xmlns:gap = "http://phonegap.com/ns/1.0"
         id        = "Lead Info"
-        version   = "1.0.0">
+        version   = "1.1.0">
 
     <name>LEADInfo</name>
 
@@ -46,13 +46,12 @@
     <!--<gap:plugin name="cordova-plugin-admobpro" source="npm" spec="2.9.6"/>-->
     <gap:plugin name="cordova-plugin-whitelist" source="npm"/>
 
-    <gap:plugin name="cordova-plugin-file-transfer " source="npm"/>
-    <gap:plugin name="cordova-plugin-contacts" source="npm" />
-    <gap:plugin name="cordova-plugin-dialogs" source="npm"/>
+
+
     <gap:plugin name="cordova-plugin-globalization" source="npm"/>
     <gap:plugin name="cordova-plugin-inappbrowser " source="npm"/>
     <gap:plugin name="cordova-plugin-network-information" source="npm"/>
-    <gap:plugin name="cordova-plugin-vibration " source="npm"/>
+
 
     <gap:splash src="icon.png"  gap:platform="android" gap:qualifier="port-ldpi" />
 
