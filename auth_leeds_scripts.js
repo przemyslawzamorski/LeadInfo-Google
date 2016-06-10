@@ -343,7 +343,7 @@ function mod() {
 
 /*pobiera i dodaje szablony*/
 function get_and_add_templates() {
-    get_date_type(true, "EML_DEF?rodzaj=L", function (data) {
+    get_date_type(true, "EML_DEF?rodzaj=L&forceRefresh", function (data) {
             console.log('szablon');
             $("#email-content-select").empty();
             window.email_template = data.results;
