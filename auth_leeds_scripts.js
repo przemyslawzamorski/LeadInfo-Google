@@ -412,7 +412,7 @@ function reload_table_leads(operation) {
 function send_email() {
     $("#load_assign_gif").css("display", "block");
     var emai_content = $("#email-form").serializeArray();
-    var email_text = JSON.stringify(emai_content[2].value);
+    var email_text = JSON.stringify(emai_content[0].value);
     email_text = email_text.replace(/\\n/g, "\\n")
         .replace(/\\'/g, "\\'")
         .replace(/\\"/g, '\\"')
@@ -421,11 +421,12 @@ function send_email() {
         .replace(/\\t/g, "\\t")
         .replace(/\\b/g, "\\b")
         .replace(/\\f/g, "\\f");
-    /* console.log(email_text);*/
+     console.log(email_text);
+    console.log(emai_content);
 
 
     execute_given_operation("MOB_LEAD_MENU_WYSLIJ_EMAIL",
-        "{\"recpient\":" + '"' + emai_content[0].value + '"' + ",\"subject\":" + '"' + emai_content[1].value + '"' + ",\"tresc\":" + email_text + "}",
+        "{\"recpient\":" + '"' + emai_content[1].value + '"' + ",\"subject\":" + '"' + emai_content[2].value + '"' + ",\"tresc\":" + email_text + "}",
         function (data) {
             /*  console.log("success");*/
         },
