@@ -35,7 +35,31 @@ th {
     color: white !important;
 }
 
+.pagination-button {
+    margin: 3px 3px 3px 3px;
+    background-color: #6EB6E7 !important;
+    color: white !important;
+}
 
+.pagination-button-active {
+    margin: 3px 3px 3px 3px;
+
+    background-color: #3C8CC3 !important;
+    color: white !important;
+}
+
+.pagination-dots {
+    margin: 3px 3px 3px 3px;
+    background-color: white !important;
+    border: none !important;
+    color: black !important;
+}
+
+.pagination-inner {
+    padding-top: 5px !important;
+    padding-bottom: 5px !important;
+    text-align: right !important;
+}
 
 button {
 
@@ -222,61 +246,6 @@ button {
 }
 table{
     background-color: #ffffff; !important;
-}
-
-/*nowe stajle*/
-.text{
-
-    color: #000000;
-}
-
-.lead-row{
-    margin: 0px 0px 0px 0px;
-
-}
-
-.up5padd{
-    padding-top: 5px;
-    padding-bottom: 5px;
-}
-
-
-/*nowe stajle2*/
-.row-flex, .row-flex > div[class*='col-'] {
-    display: -webkit-box;
-    display: -moz-box;
-    display: -ms-flexbox;
-    display: -webkit-flex;
-    display: flex;
-    flex:1 1 auto;
-}
-
-.row-flex-wrap {
-	-webkit-flex-flow: row wrap;
-    align-content: flex-start;
-    flex:0;
-}
-
-.row-flex > div[class*='col-'], .container-flex > div[class*='col-'] {
-	 margin:-.2px; /* hack adjust for wrapping */
-}
-
-.container-flex > div[class*='col-'] div,.row-flex > div[class*='col-'] div {
-	width:100%;
-}
-
-
-.flex-col {
-    display: flex;
-    display: -webkit-flex;
-    flex: 1 100%;
-	flex-flow: column nowrap;
-}
-
-.flex-grow {
-	display: flex;
-    -webkit-flex: 2;
-    flex: 2;
 }
 
 textarea{

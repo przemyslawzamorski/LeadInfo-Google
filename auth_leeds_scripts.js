@@ -66,54 +66,43 @@ function render_leeds_in_place(data, destination) {
 
     /*czyszczenie i dodawania zawarotsci leedow*/
     $("#" + destination).empty();
+    console.log("wszedl");
     if (data.length == 0) {
         switch (destination) {
             case "new-leads":
-                $("#" + destination).append("<div id='no-new' style='display: flex;'><div class='col-xs-1 col-sm-1 red-background no-side-padding' style='text-align: center; vertical-align:middle; flex: 1;' ><i class='fa fa-exclamation-triangle' ></i></div>" +
-                "<div class='col-sm-4 col-xs-4 text' style='flex: 1;'>Brak nowych leadow</div></div>");
-
+                $("#" + destination).append("<td class='status-cell red-background' ><i class='fa fa-exclamation-triangle'></i></td><td>Brak nowych leadow</td>");
                 break;
             case "open-no-attribution":
-                $("#" + destination).append("<div id='no-att'><div class='col-xs-1 col-sm-1 yellow-background no-side-padding' style='text-align: center; vertical-align:middle;' ><i class='fa fa-exclamation-triangle' ></i></div>" +
-                "<div class='col-sm-4 col-xs-4 text' >Brak otwartch nieprzypisanych leadow</div></div>");
-
+                $("#" + destination).append("<td class='status-cell yellow-background' ><i class='fa fa-exclamation-triangle'></i></td><td>Brak otwartch nieprzypisanych leadow</td>");
                 break;
             case "my-leeds":
-                $("#" + destination).append("<div id='my-lee'><div class='col-xs-1 col-sm-1 green-background no-side-padding' style='text-align: center; vertical-align:middle;' ><i class='fa fa-exclamation-triangle' ></i></div>" +
-                "<div class='col-sm-4 col-xs-4 text' >Brak twoich otwartych leadow</div></div>");
-
+                $("#" + destination).append("<td class='status-cell green-background' ><i class='fa fa-exclamation-triangle'></i></td><td>Brak twoich otwartych leadow</td>");
                 break;
         }
     }
     else {
         for (var i = 0; i < data.length; i++) {
             /*tworzenie wiersza z opcją klikania na niego i wyswietlania info szczeolowych */
-            $('<div>', {id: data[i].LEADID}).appendTo('#' + destination);
-            $("#" + data[i].LEADID).addClass("row lead-row row-flex row-flex-wrap");
+            $('<tr>', {id: data[i].LEADID}).appendTo('#' + destination);
             $("#" + data[i].LEADID).attr("onclick", "get_lead_info(this.id)");
             $("#" + data[i].LEADID).attr("data-toggle", "modal");
             $("#" + data[i].LEADID).attr("data-target", "#leedsTable");
 
-            if ((i % 2) == 0) {
-                $("#" + data[i].LEADID).css("background-color", "#f3f1f3");
-            }
-
             /*dodawanie statusu nowy otwary lub mój*/
             switch (destination) {
                 case "new-leads":
-                    $("#" + data[i].LEADID).append("<div class='col-xs-1 col-sm-1  no-side-padding' style='text-align: center;'><div class='red-background'> <i class='fa fa-exclamation-triangle' ></i></div></div>");
+                    $("#" + data[i].LEADID).append("<td class='status-cell red-background'><i class='fa fa-exclamation-triangle'></i></td>");
                     break;
                 case "open-no-attribution":
-                    $("#" + data[i].LEADID).append("<div class='col-xs-1 col-sm-1  no-side-padding' style='text-align: center;'><div class='yellow-background' ><i class='fa fa-exclamation-triangle' ></i></div></div>");
+                    $("#" + data[i].LEADID).append("<td class='status-cell yellow-background'><i class='fa fa-exclamation-triangle'></i></td>");
                     break;
                 case "my-leeds":
-                    $("#" + data[i].LEADID).append("<div class='col-xs-1 col-sm-1  no-side-padding' style='text-align: center;'><div class='green-background'><i class='fa fa-exclamation-triangle' ></i></div></div>");
+                    $("#" + data[i].LEADID).append("<td class='status-cell green-background'><i class='fa fa-exclamation-triangle'></i></td>");
                     break;
             }
 
             /*dodawanie id leada oraz nazwy od kogo  */
-            $("#" + data[i].LEADID).append("<div class='col-xs-4 col-sm-4 brake-lines text up5padd' ><div>" + data[i].LEADID + "</br>" + data[i].FIRSTNAME + " " + data[i].LASTNAME + +"</div></div>");
-
+            $("#" + data[i].LEADID).append("<td class='col40 brake-lines' >" + data[i].LEADID + "</br>" + data[i].FIRSTNAME + " " + data[i].LASTNAME + "</td>");
 
             /*dodawanie kolejnego kroku oraz czasu ktory pozostał*/
             if (data[i].CONTACTDATE && data[i].OPENDATE) {
@@ -134,13 +123,13 @@ function render_leeds_in_place(data, destination) {
 
 function render_date(object_data, date, status) {
 
-    $("#" + object_data.LEADID).append("<div class='col-xs-3 col-sm-3 text up5padd' ><div >" + status + "</div></div>");
+    $("#" + object_data.LEADID).append("<td class='col30' >" + status + "</td>");
     var time = time_difference(date);
 
     if (time_difference_number(date) >= 0) {
-        $("#" + object_data.LEADID).append("<div class='col-xs-4 col-sm-4 text up5padd' ><div >" + time + "</div></div>");
+        $("#" + object_data.LEADID).append("<td class='col30'>" + time + "</td>");
     } else {
-        $("#" + object_data.LEADID).append("<div class='warning col-xs-4 col-sm-4 up5padd' ><div >" + time.replace("-", "") + " przekroczono</div></div>");
+        $("#" + object_data.LEADID).append("<td class='warning no-side-padding col30' >" + time.replace("-", "") + " przekroczono</td>");
     }
 }
 
