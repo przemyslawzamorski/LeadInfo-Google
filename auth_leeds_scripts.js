@@ -306,7 +306,7 @@ function append_contact_info(data) {
             $('<button>', {id: 'email'}).appendTo("#emailCell");
             $("#email").attr("data-toggle", "modal");
             $("#email").attr("data-target", "#emailTemplate");
-            $("#email").attr("onclick", "get_email_content()");
+            $("#email").attr("onclick", "get_email_content(); get_and_add_templates();");
             $("#email").text("Wyslij wiadomosc");
         }
     }
@@ -315,7 +315,7 @@ function append_contact_info(data) {
 
 /*na wybor szablonu dodawanie szablonu do pola tekstowego wraz z  dodaniem stopki*/
 function append_email_content() {
-    get_and_add_templates();
+
     var button_content = $("#email-content-select option:selected").text();
     var email_template = $.grep(window.email_template, function (e) {
         return e.NAZWA == button_content;

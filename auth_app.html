@@ -10,7 +10,7 @@
 
 <head>
     <!--<meta http-equiv="Content-Security-Policy" content="default-src *; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval'">-->
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
 
     <!--fonts-->
@@ -139,6 +139,19 @@
                     <h4 class="modal-title"><i class="fa fa-bars"></i> Wyslij wiadomosc</h4>
                 </div>
                 <form id="email-form" class="form-inline" style="display: block;">
+                    <div class="form-group email-field" style="display: block;">
+                        <label class="email-field-label">Szablon</label>
+                        <select id="email-content-select" class="form-control">
+
+                        </select>
+                    </div>
+
+                    <div class="form-group email-field" style="display:block;">
+                        <label for="comment" style="width:150px;">Tresc wiadomosci</label>
+                        <textarea class="form-control autoExpand" rows="5" data-min-rows='3' id="comment" name="comment"
+                                  style="display:block; width:100%;"></textarea>
+                    </div>
+
                     <div class="form-group email-field">
                         <label class="email-field-label">Do</label>
                         <input type="text" class="form-control" id="cus-email" name="email">
@@ -147,19 +160,7 @@
                         <label class="email-field-label">Temat</label>
                         <input type="text" class="form-control" id="subject" name="subject">
                     </div>
-                    <div class="form-group email-field" style="display: block;">
-                        <label class="email-field-label">Szablon</label>
-                        <select id="email-content-select" class="form-control">
 
-                        </select>
-                    </div>
-
-
-                    <div class="form-group email-field" style="display:block;">
-                        <label for="comment" style="width:150px;">Tresc wiadomosci</label>
-                        <textarea class="form-control" rows="5" id="comment" name="comment"
-                                  style="display:block; width:100%;"></textarea>
-                    </div>
                 </form>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"
@@ -225,6 +226,24 @@
 
     });
 
+    /*autodostoswanie textfielda */
+    $(document)
+            .one('focus.textarea', '.autoExpand', function () {
+                console.log('test');
+                var savedValue = this.value;
+                this.value = '';
+                this.baseScrollHeight = this.scrollHeight;
+                this.value = savedValue;
+            })
+            .on('input.textarea', '.autoExpand', function () {
+                var minRows = this.getAttribute('data-min-rows') | 0,
+                        rows;
+                this.rows = minRows;
+                console.log(this.scrollHeight, this.baseScrollHeight);
+                rows = Math.ceil((this.scrollHeight - this.baseScrollHeight) / 17);
+                this.rows = minRows + rows;
+            });
+
 
     $(function () {
         if (navigator.userAgent.match(/(iPhone|Android.*Mobile)/i)) {
@@ -234,5 +253,7 @@
             });
         }
     });
+
+
 </script>
 </html>
