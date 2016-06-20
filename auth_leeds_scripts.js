@@ -310,11 +310,17 @@ function append_email_content() {
         return e.NAZWA == button_content;
     });
 
+    var email_footer = window.user.IMIE + '' + window.user.Nazwisko + '</br>Konsultant ds. Sprzedaży</br>' + window.user.FFJOR_NAZWA+'</br>'+ window.user.EMAIL +'</br>' + window.user.NR_TELEFONU;
+
     if (email_template[0].TRESC) {
-        email_template = email_template[0].TRESC + '\n' + window.footer;
+        email_template = email_template[0].TRESC + '\n' + email_footer;
+
+
     } else {
-        email_template = '\n\n' + window.footer;
+        email_template = '\n\n' + email_footer;
     }
+
+
     $("#comment").val(email_template);
 }
 
