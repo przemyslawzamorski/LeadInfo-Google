@@ -66,7 +66,7 @@ function render_leeds_in_place(data, destination) {
 
     /*czyszczenie i dodawania zawarotsci leedow*/
     $("#" + destination).empty();
-    console.log("wszedl");
+    //console.log("wszedl");
     if (data.length == 0) {
         switch (destination) {
             case "new-leads":
@@ -336,6 +336,7 @@ function get_and_add_templates() {
             console.log('szablon');
             $("#email-content-select").empty();
             window.email_template = data.results;
+            console.log(window.email_template);
             for (var i = 0; i < data.results.length; i++) {
                 var select_id = "template-select-" + i;
                 var selector = '<option  id=' + select_id + '>' + window.email_template[i].NAZWA + '</option>';
@@ -352,7 +353,7 @@ function get_and_add_templates() {
 function load_and_render_page_data() {
     $("#my-leeds").append(' <div class="loader-inner"><img src="ajax-loader.gif" ></div>');
 
-    console.log(window.test);
+    //console.log(window.test);
     /*podzielenie leadow na nowe i nowe otwarte i wyrenderowanie*/
     $.when(window.new_leads = $.grep(window.test.results, function (e) {
         return e.STATUSCODE == "NEW"
@@ -377,6 +378,7 @@ function load_and_render_page_data() {
         window.footer = data.results[0].STOPKA_MAIL;
         window.user = data.results[0];
         window.usr_short = window.user.SKROT;
+        console.log(window.user);
         console.log(window.usr_short);
 
         /*wyswietlanie moich leadow*/
@@ -421,8 +423,8 @@ function send_email() {
         .replace(/\\t/g, "\\t")
         .replace(/\\b/g, "\\b")
         .replace(/\\f/g, "\\f");
-     console.log(email_text);
-    console.log(emai_content);
+    //console.log(email_text);
+    //console.log(emai_content);
 
 
     execute_given_operation("MOB_LEAD_MENU_WYSLIJ_EMAIL",
