@@ -360,12 +360,14 @@ function append_email_content() {
     });
 
     var email_content = email_template[0].TRESC;
-    console.log(email_content);
-
+    
+    if (email_content){
     var indicies = getIndicesOf('#:', email_content);
     var tags = get_all_hashed_tags(indicies, email_content);
     email_content = replace_email_tags(tags, email_content);
-
+    }else{
+        email_content='';
+    }
 
     console.log(email_content);
     $("#comment").val(email_content);
