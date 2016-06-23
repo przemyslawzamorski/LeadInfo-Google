@@ -387,6 +387,7 @@ function mod() {
 
 /*pobiera i dodaje szablony*/
 function get_and_add_templates() {
+
     get_date_type(true, "EML_DEF?rodzaj=L&forceRefresh", function (data) {
             console.log('szablon');
             $("#email-content-select").empty();
@@ -397,6 +398,7 @@ function get_and_add_templates() {
                 var selector = '<option  id=' + select_id + '>' + window.email_template[i].NAZWA + '</option>';
                 $("#email-content-select").append(selector);
             }
+
         }
         , function () {
             console.log("nie mozna zaladowac email templates");
