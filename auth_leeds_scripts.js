@@ -300,6 +300,45 @@ function append_contact_info(data) {
         }
     }
 }
+/* ##### FUNKCJIE DOTYCZĄCE PARSOWANIA I PODSTAWIANIA EMAILA ###*/
+function getIndicesOf(searchStr, string) {
+    var startIndex = 0, searchStrLen = searchStr.length;
+    var index, indices = [];
+
+    while ((index = string.indexOf(searchStr, startIndex)) > -1) {
+        indices.push(index);
+        startIndex = index + searchStrLen;
+    }
+    return indices;
+}
+
+
+function get_all_hashed_tags(indicies, string) {
+
+    hashed_tags = [];
+
+    for (var i = 0; i < indicies.length; i = i + 2) {
+        var hash_index_before = x[i];
+        var hash_index_after = x[i + 1] + 2;
+
+        hashed_tags.push(string.substring(hash_index_before, hash_index_after));
+    }
+    return hashed_tags;
+}
+
+function replace_email_tags(tags, string) {
+
+    var content = string;
+
+    for (var i = 0; i < tags.length; i++) {
+        var tag_without_hash = tags[i].replace(/\#/g, "").replace(/\:/g, "");
+        content = content.replace(tags[i], tag_without_hash);
+
+    }
+    return content;
+}
+
+/* ##### --- ###*/
 
 
 /*na wybor szablonu dodawanie szablonu do pola tekstowego wraz z  dodaniem stopki*/
@@ -310,18 +349,19 @@ function append_email_content() {
         return e.NAZWA == button_content;
     });
 
-    var email_footer = window.user.IMIE + '' + window.user.Nazwisko + '</br>Konsultant ds. Sprzedaży</br>' + window.user.FFJOR_NAZWA+'</br>'+ window.user.EMAIL +'</br>' + window.user.NR_TELEFONU;
+    var email_content = email_template[0];
 
-    if (email_template[0].TRESC) {
-        email_template = email_template[0].TRESC + '\n' + email_footer;
-
-
-    } else {
-        email_template = '\n\n' + email_footer;
+    if (object.FIRSTNAME) {
+        email_content = email_content.replace(/#:imie_klienta/g, object.FIRSTNAME);
     }
 
-
-    $("#comment").val(email_template);
+    if (email_content) {
+        email_content = email_content + '\n' + window.footer;
+    } else {
+        email_content = '\n\n' + window.footer;
+    }
+    console.log(email_content);
+    $("#comment").val(email_content);
 }
 
 /* wyswietlanie zawartości template email  */
