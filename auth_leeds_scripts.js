@@ -157,7 +157,7 @@ function get_lead_info(this_id) {
     if (single_lead.length != 0) window.object = single_lead[0];
 
 
-    /*console.log('a', object);*/
+    console.log('a', object);
     var status = '';
     var nazwa_leedu = '';
 
@@ -332,8 +332,17 @@ function replace_email_tags(tags, string) {
     var content = string;
 
     for (var i = 0; i < tags.length; i++) {
-        var tag_without_hash = tags[i].replace(/\#/g, "").replace(/\:/g, "");
-        content = content.replace(tags[i], tag_without_hash);
+        var tag_without_hash = tags[i].replace(/\#/g, "").replace(/\:/g, "").replace(/ /g, '');
+
+        if (object.hasOwnProperty(tag_without_hash)) {
+            content = content.replace(tags[i], object[tag_without_hash]);
+        }
+
+        if (user.hasOwnProperty(tag_without_hash)){
+            content = content.replace(tags[i], user[tag_without_hash]);
+        }
+
+
 
     }
     return content;
