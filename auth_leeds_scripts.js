@@ -319,8 +319,8 @@ function get_all_hashed_tags(indicies, string) {
     hashed_tags = [];
 
     for (var i = 0; i < indicies.length; i = i + 2) {
-        var hash_index_before = x[i];
-        var hash_index_after = x[i + 1] + 2;
+        var hash_index_before = indicies[i];
+        var hash_index_after = indicies[i + 1] + 2;
 
         hashed_tags.push(string.substring(hash_index_before, hash_index_after));
     }
@@ -350,7 +350,8 @@ function append_email_content() {
         return e.NAZWA == button_content;
     });
 
-    var email_content = email_template[0];
+    var email_content = email_template[0].TRESC;
+    console.log(email_content);
 
     var indicies = getIndicesOf('#:', email_content);
     var tags = get_all_hashed_tags(indicies, email_content);
