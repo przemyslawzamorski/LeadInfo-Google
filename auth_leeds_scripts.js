@@ -235,10 +235,13 @@ function get_lead_info(this_id) {
                 append_contact_info(window.lead_contact_info);
             } else {
                 var contact_info_link = window.serwer + "/rin/lead_con/" + object.LEADID;
-                $.getJSON(contact_info_link, function (data) {
+
+                get_date_type(true, "lead_con/" + object.LEADID, function (data) {
                     window.lead_contact_info = data;
                     window.lead_contact.push(data);
                     append_contact_info(window.lead_contact_info);
+                }, function () {
+                    /* console.log("nie mozna zaladowac danych szczegolowych");*/
                 });
             }
         });
@@ -300,6 +303,7 @@ function append_contact_info(data) {
         }
     }
 }
+
 /* ##### FUNKCJIE DOTYCZĄCE PARSOWANIA I PODSTAWIANIA EMAILA ###*/
 function getIndicesOf(searchStr, string) {
     /*w wersji serwerowej przeniesc na framework scripts*/
