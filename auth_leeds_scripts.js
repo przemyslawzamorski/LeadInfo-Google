@@ -305,6 +305,7 @@ function getIndicesOf(searchStr, string) {
     /*w wersji serwerowej przeniesc na framework scripts*/
     var startIndex = 0, searchStrLen = searchStr.length;
     var index, indices = [];
+    ;
 
     while ((index = string.indexOf(searchStr, startIndex)) > -1) {
         indices.push(index);
@@ -318,31 +319,55 @@ function get_all_hashed_tags(indicies, string) {
     /*w wersji serwerowej przeniesc na framework scripts*/
     hashed_tags = [];
 
+
     for (var i = 0; i < indicies.length; i = i + 2) {
         var hash_index_before = indicies[i];
         var hash_index_after = indicies[i + 1] + 2;
 
         hashed_tags.push(string.substring(hash_index_before, hash_index_after));
     }
+
     return hashed_tags;
 }
 
 function replace_email_tags(tags, string) {
 
+    console.log(tags);
     var content = string;
 
     for (var i = 0; i < tags.length; i++) {
         var tag_without_hash = tags[i].replace(/\#/g, "").replace(/\:/g, "").replace(/ /g, '');
+        console.log(tag_without_hash);
 
+        /*jezeli lead ma pole to podaj jego dane*/
         if (object.hasOwnProperty(tag_without_hash)) {
-            content = content.replace(tags[i], object[tag_without_hash]);
+                content = content.replace(tags[i], object[tag_without_hash]);
         }
 
-        if (user.hasOwnProperty(tag_without_hash)){
+         /*jezeli moj user ma pole takie to podstaw*/
+        if (user.hasOwnProperty(tag_without_hash)) {
             content = content.replace(tags[i], user[tag_without_hash]);
         }
 
+        /*jezeli tag bedzie spozdrowieniem czyli szanownym pozdrowieniem to podstaw*/
+        if (tag_without_hash == 'SPOZDROWIENIE') {
+            if (object.POZDROWIENIE == 'Pan') {
+                content = content.replace(tags[i], 'Szanowny ' + object.POZDROWIENIE);
 
+            } else {
+                content = content.replace(tags[i], 'Szanowna ' + object.POZDROWIENIE);
+
+            }
+        }
+        /*jezeli tag bedzie gpozdrowieniem czyli grzecznosciowym z ofertą pozdrowieniem to podstaw*/
+        if (tag_without_hash == 'GPOZDROWIENIE') {
+            if (object.POZDROWIENIE == 'Pan') {
+                content = content.replace(tags[i], 'Pana ');
+
+            } else {
+                content = content.replace(tags[i], 'Pania ');
+            }
+        }
 
     }
     return content;
@@ -360,13 +385,13 @@ function append_email_content() {
     });
 
     var email_content = email_template[0].TRESC;
-    
-    if (email_content){
-    var indicies = getIndicesOf('#:', email_content);
-    var tags = get_all_hashed_tags(indicies, email_content);
-    email_content = replace_email_tags(tags, email_content);
-    }else{
-        email_content='';
+
+    if (email_content) {
+        var indicies = getIndicesOf('#:', email_content);
+        var tags = get_all_hashed_tags(indicies, email_content);
+        email_content = replace_email_tags(tags, email_content);
+    } else {
+        email_content = '';
     }
 
     console.log(email_content);
