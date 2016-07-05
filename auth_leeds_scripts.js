@@ -369,7 +369,7 @@ function replace_email_tags(tags, string) {
                 content = content.replace(tags[i], 'Pana ');
 
             } else {
-                content = content.replace(tags[i], 'Pania ');
+                content = content.replace(tags[i], 'Panią ');
             }
         }
 
