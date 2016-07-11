@@ -345,10 +345,10 @@ function replace_email_tags(tags, string) {
 
         /*jezeli lead ma pole to podaj jego dane*/
         if (object.hasOwnProperty(tag_without_hash)) {
-                content = content.replace(tags[i], object[tag_without_hash]);
+            content = content.replace(tags[i], object[tag_without_hash]);
         }
 
-         /*jezeli moj user ma pole takie to podstaw*/
+        /*jezeli moj user ma pole takie to podstaw*/
         if (user.hasOwnProperty(tag_without_hash)) {
             content = content.replace(tags[i], user[tag_without_hash]);
         }
@@ -370,6 +370,24 @@ function replace_email_tags(tags, string) {
 
             } else {
                 content = content.replace(tags[i], 'Panią ');
+            }
+        }
+        /*jezeli tag bedzie gpozdrowieniem czyli zwrot z ofertą pozdrowieniem to podstaw*/
+        if (tag_without_hash == 'ZPOZDROWIENIE') {
+            if (object.POZDROWIENIE == 'Pan') {
+                content = content.replace(tags[i], 'Panu ');
+
+            } else {
+                content = content.replace(tags[i], 'Pani ');
+            }
+        }
+        /*jezeli tag bedzie gpozdrowieniem czyli zwrot z ofertą pozdrowieniem to podstaw*/
+        if (tag_without_hash == 'KPOZDROWIENIE') {
+            if (object.POZDROWIENIE == 'Pan') {
+                content = content.replace(tags[i], 'Pana ');
+
+            } else {
+                content = content.replace(tags[i], 'Pani ');
             }
         }
 
