@@ -6,55 +6,54 @@ window.lead_contact = [];
 function log_out() {
     var nohttps_url = window.serwer;
     nohttps_url = nohttps_url.replace("https://", "");
-    $.ajax(window.header + "a:a@" + window.rest_url + "/apps/leadinfo/auth_leeds_styles.css",
-        {
-            /*wylogowuwyje i czyszczcze dane*/
-            statusCode: {
-                401: function () {
-                    $("#username,#password,#modal-title,#modal-content,#main-content ").empty();
-                    $("#password").empty();
-                    $("#login").css("display", "block");
-                    $("#login").css("height", "100vh");
-                    $("#login").css("width", "100vw");
-                    $("#leeds-content").css("display", "none");
-                    $("#password").val('');
-                    $("#username").val('');
-                    window.my_leeds = '';
-                    window.new_leads = '';
-                    window.open_with = '';
-                    window.user = '';
-                    window.usr_short = '';
-                    window.object = '';
-                    location.reload();
-                }
+    $.ajax(window.header + "a:a@" + window.rest_url + "/apps/leadinfo/auth_leeds_styles.css", {
+        /*wylogowuwyje i czyszczcze dane*/
+        statusCode: {
+            401: function() {
+                $("#username,#password,#modal-title,#modal-content,#main-content ").empty();
+                $("#password").empty();
+                $("#login").css("display", "block");
+                $("#login").css("height", "100vh");
+                $("#login").css("width", "100vw");
+                $("#leeds-content").css("display", "none");
+                $("#password").val('');
+                $("#username").val('');
+                window.my_leeds = '';
+                window.new_leads = '';
+                window.open_with = '';
+                window.user = '';
+                window.usr_short = '';
+                window.object = '';
+                location.reload();
             }
-        });
+        }
+    });
 }
 
 /*podzial leadow po statusie i wywołanie renderowania*/
 function leads_divison_and_init_render(leads) {
 
-    $.when(window.new_leads = $.grep(leads, function (e) {
+    $.when(window.new_leads = $.grep(leads, function(e) {
         return e.STATUSCODE == "NEW"
-    })).then(function () {
+    })).then(function() {
         /*console.log("Nowe ", window.new_leads);*/
         render_leeds_in_place(window.new_leads, "new-leads");
     });
 
-    $.when(window.open_with = $.grep(leads, function (e) {
+    $.when(window.open_with = $.grep(leads, function(e) {
         return e.STATUSCODE == "OPEN" && !e.UPRAWNIENIA_PRACA
 
-    })).then(function (x) {
+    })).then(function(x) {
         /*console.log("otwarte z ", window.open_with);*/
         render_leeds_in_place(window.open_with, "open-no-attribution");
     });
 
-    $.when(window.my_leeds = $.grep(leads, function (e) {
+    $.when(window.my_leeds = $.grep(leads, function(e) {
         return e.UPRAWNIENIA_PRACA == window.usr_short && e.STATUSCODE == "OPEN"
-    })).then(function (x) {
+    })).then(function(x) {
         /* console.log("moje ", window.my_leeds);*/
         render_leeds_in_place(window.my_leeds, "my-leeds");
-        window.setTimeout(function () {
+        window.setTimeout(function() {
             $("#refresh-button").removeClass("glyphicon-refresh-animate");
         }, 1000);
     });
@@ -79,11 +78,10 @@ function render_leeds_in_place(data, destination) {
                 $("#" + destination).append("<td class='status-cell green-background' ><i class='fa fa-exclamation-triangle'></i></td><td>Brak twoich otwartych leadow</td>");
                 break;
         }
-    }
-    else {
+    } else {
         for (var i = 0; i < data.length; i++) {
             /*tworzenie wiersza z opcją klikania na niego i wyswietlania info szczeolowych */
-            $('<tr>', {id: data[i].LEADID}).appendTo('#' + destination);
+            $('<tr>', { id: data[i].LEADID }).appendTo('#' + destination);
             $("#" + data[i].LEADID).attr("onclick", "get_lead_info(this.id)");
             $("#" + data[i].LEADID).attr("data-toggle", "modal");
             $("#" + data[i].LEADID).attr("data-target", "#leedsTable");
@@ -111,8 +109,7 @@ function render_leeds_in_place(data, destination) {
             } else if (data[i].OPENDATE && !data[i].CONTACTDATE) {
                 render_date(data[i], data[i].TARGETCONTACTDATE, "Kontakt");
 
-            }
-            else if (!data[i].OPENDATE) {
+            } else if (!data[i].OPENDATE) {
                 render_date(data[i], data[i].TARGETOPENDATE, "Otwarcie");
             }
             /*dodawanie aktywnosci lini*/
@@ -141,17 +138,17 @@ function get_lead_info(this_id) {
     $("#" + window.click_id).addClass("active-line");
     /* console.log(this_id);*/
 
-    var single_lead = $.grep(window.new_leads, function (e) {
+    var single_lead = $.grep(window.new_leads, function(e) {
         return e.LEADID == this_id;
     });
     if (single_lead.length != 0) window.object = single_lead[0];
 
-    single_lead = $.grep(window.open_with, function (e) {
+    single_lead = $.grep(window.open_with, function(e) {
         return e.LEADID == this_id;
     });
     if (single_lead.length != 0) window.object = single_lead[0];
 
-    single_lead = $.grep(window.my_leeds, function (e) {
+    single_lead = $.grep(window.my_leeds, function(e) {
         return e.LEADID == this_id;
     });
     if (single_lead.length != 0) window.object = single_lead[0];
@@ -221,35 +218,35 @@ function get_lead_info(this_id) {
 
     if (object.FIRSTNAME && object.LASTNAME) {
         $("#modal-content").append('<tr><td class="normal-font"><i class="fa fa-user"> </i> ' +
-        object.POZDROWIENIE + ' ' + object.FIRSTNAME + ' ' + object.LASTNAME + '</td><td>  </td></tr>');
+            object.POZDROWIENIE + ' ' + object.FIRSTNAME + ' ' + object.LASTNAME + '</td><td>  </td></tr>');
     }
 
     /*pobieranie albo z serwera albo z tablicy danych kontaktowych*/
     $.when(
-        window.lead_contact_info = $.grep(window.lead_contact, function (e) {
+        window.lead_contact_info = $.grep(window.lead_contact, function(e) {
             return e.LEADID == object.LEADID;
         })
-    ).then(function () {
-            if (window.lead_contact_info.length != 0) {
-                window.lead_contact_info = lead_contact_info[0];
-                append_contact_info(window.lead_contact_info);
-            } else {
-                var contact_info_link = window.serwer + "/rin/lead_con/" + object.LEADID;
+    ).then(function() {
+        if (window.lead_contact_info.length != 0) {
+            window.lead_contact_info = lead_contact_info[0];
+            append_contact_info(window.lead_contact_info);
+        } else {
+            var contact_info_link = window.serwer + "/rin/lead_con/" + object.LEADID;
 
-                get_date_type(true, "lead_con/" + object.LEADID, function (data) {
-                    window.lead_contact_info = data;
-                    window.lead_contact.push(data);
-                    append_contact_info(window.lead_contact_info);
-                }, function () {
-                    /* console.log("nie mozna zaladowac danych szczegolowych");*/
-                });
-            }
-        });
+            get_date_type(true, "lead_con/" + object.LEADID, function(data) {
+                window.lead_contact_info = data;
+                window.lead_contact.push(data);
+                append_contact_info(window.lead_contact_info);
+            }, function() {
+                /* console.log("nie mozna zaladowac danych szczegolowych");*/
+            });
+        }
+    });
 
     /*button przypisania*/
     $("#assign").remove();
     if (!window.object.PRZYPISANY || window.object.STATUSCODE == "NEW") {
-        $('<button>', {id: 'assign'}).appendTo("#modal-footer");
+        $('<button>', { id: 'assign' }).appendTo("#modal-footer");
         $("#assign").attr("class", "btn btn-default");
         $("#assign").text("Przypisz sobie");
         $("#assign").attr("onclick", "assign_lead()");
@@ -269,7 +266,7 @@ function append_contact_info(data) {
         $("#modal-content").append('</tr><tr><td><i class="fa fa-mobile"></i><strong> Numer telefonu</strong></td><td> </td></tr>');
 
         if (data.PHONEMOBILE) {
-            $('<tr>', {id: "numberCell"}).appendTo('#modal-content');
+            $('<tr>', { id: "numberCell" }).appendTo('#modal-content');
             $("#numberCell").append("<td>" + data.PHONEMOBILE + "</td> ");
             if (window.object.UPRAWNIENIA_PRACA) {
                 var button = '<button><a href="tel:' + data.PHONEMOBILE + '" onclick="mod()" >Zadzwon</a></button>';
@@ -279,7 +276,7 @@ function append_contact_info(data) {
 
         if (data.PHONEHOME) {
 
-            $('<tr>', {id: "numberCell"}).appendTo('#modal-content');
+            $('<tr>', { id: "numberCell" }).appendTo('#modal-content');
             $("#numberCell").append("<td>" + data.PHONEHOME + "</td> ");
             if (window.object.UPRAWNIENIA_PRACA) {
                 var button = '<button><a href="tel:' + data.PHONEHOME + '" onclick="mod()" >Zadzwon</a></button>';
@@ -292,10 +289,10 @@ function append_contact_info(data) {
     if (data.EMAIL) {
         window.contact_email = data.EMAIL;
         $("#modal-content").append('<tr><td><i class="fa fa-envelope"></i><strong> Adres email</strong></td><td> </td></tr>');
-        $('<tr>', {id: "emailCell"}).appendTo('#modal-content');
+        $('<tr>', { id: "emailCell" }).appendTo('#modal-content');
         $("#emailCell").append("<td>" + data.EMAIL + "</td> ");
         if (window.object.UPRAWNIENIA_PRACA) {
-            $('<button>', {id: 'email'}).appendTo("#emailCell");
+            $('<button>', { id: 'email' }).appendTo("#emailCell");
             $("#email").attr("data-toggle", "modal");
             $("#email").attr("data-target", "#emailTemplate");
             $("#email").attr("onclick", "get_email_content(); get_and_add_templates();");
@@ -307,9 +304,9 @@ function append_contact_info(data) {
 /* ##### FUNKCJIE DOTYCZĄCE PARSOWANIA I PODSTAWIANIA EMAILA ###*/
 function getIndicesOf(searchStr, string) {
     /*w wersji serwerowej przeniesc na framework scripts*/
-    var startIndex = 0, searchStrLen = searchStr.length;
-    var index, indices = [];
-    ;
+    var startIndex = 0,
+        searchStrLen = searchStr.length;
+    var index, indices = [];;
 
     while ((index = string.indexOf(searchStr, startIndex)) > -1) {
         indices.push(index);
@@ -402,7 +399,7 @@ function replace_email_tags(tags, string) {
 function append_email_content() {
 
     var button_content = $("#email-content-select option:selected").text();
-    var email_template = $.grep(window.email_template, function (e) {
+    var email_template = $.grep(window.email_template, function(e) {
         return e.NAZWA == button_content;
     });
 
@@ -435,21 +432,20 @@ function mod() {
 /*pobiera i dodaje szablony*/
 function get_and_add_templates() {
 
-    get_date_type(true, "EML_DEF?rodzaj=L&forceRefresh", function (data) {
-            console.log('szablon');
-            $("#email-content-select").empty();
-            window.email_template = data.results;
-            console.log(window.email_template);
-            for (var i = 0; i < data.results.length; i++) {
-                var select_id = "template-select-" + i;
-                var selector = '<option  id=' + select_id + '>' + window.email_template[i].NAZWA + '</option>';
-                $("#email-content-select").append(selector);
-            }
-
+    get_date_type(true, "EML_DEF?rodzaj=L", function(data) {
+        console.log('szablon');
+        $("#email-content-select").empty();
+        window.email_template = data;
+        console.log(window.email_template);
+        for (var i = 0; i < data.length; i++) {
+            var select_id = "template-select-" + i;
+            var selector = '<option  id=' + select_id + '>' + window.email_template[i].NAZWA + '</option>';
+            $("#email-content-select").append(selector);
         }
-        , function () {
-            console.log("nie mozna zaladowac email templates");
-        });
+
+    }, function() {
+        console.log("nie mozna zaladowac email templates");
+    });
 
 }
 
@@ -459,16 +455,16 @@ function load_and_render_page_data() {
 
     //console.log(window.test);
     /*podzielenie leadow na nowe i nowe otwarte i wyrenderowanie*/
-    $.when(window.new_leads = $.grep(window.test.results, function (e) {
+    $.when(window.new_leads = $.grep(window.test.results, function(e) {
         return e.STATUSCODE == "NEW"
-    })).then(function () {
+    })).then(function() {
         render_leeds_in_place(window.new_leads, "new-leads");
     });
 
-    $.when(window.open_with = $.grep(window.test.results, function (e) {
+    $.when(window.open_with = $.grep(window.test.results, function(e) {
         return e.STATUSCODE == "OPEN" && !e.UPRAWNIENIA_PRACA
 
-    })).then(function (x) {
+    })).then(function(x) {
         render_leeds_in_place(window.open_with, "open-no-attribution");
     });
 
@@ -477,28 +473,27 @@ function load_and_render_page_data() {
     get_and_add_templates();
 
     /*pobieram dane usera*/
-    get_date_type(true, "usr_ja", function (data) {
+    get_date_type(true, "usr_ja", function(data) {
 
-        window.footer = data.results[0].STOPKA_MAIL;
-        window.user = data.results[0];
+        window.footer = data[0].STOPKA_MAIL;
+        window.user = data[0];
         window.usr_short = window.user.SKROT;
         console.log(window.user);
         console.log(window.usr_short);
 
         /*wyswietlanie moich leadow*/
 
-        $.when(window.my_leeds = $.grep(window.test.results, function (e) {
+        $.when(window.my_leeds = $.grep(window.test.results, function(e) {
             return e.UPRAWNIENIA_PRACA == window.usr_short && e.STATUSCODE == "OPEN"
-        })).then(function (x) {
+        })).then(function(x) {
             $("#my-leeds").empty();
             render_leeds_in_place(window.my_leeds, "my-leeds");
-            window.setTimeout(function () {
+            window.setTimeout(function() {
                 $("#refresh-button").removeClass("glyphicon-refresh-animate");
             }, 1000);
         });
 
-    }, function () {
-    });
+    }, function() {});
 
 
 }
@@ -508,9 +503,9 @@ function reload_table_leads(operation) {
     $("#refresh-button").addClass("glyphicon-refresh-animate");
 
     /*pobieram dane leady i wyswietla na ekranie*/
-    get_date_type(false, operation, function (data) {
-        leads_divison_and_init_render(data.results);
-    }, function () {
+    get_date_type(false, operation, function(data) {
+        leads_divison_and_init_render(data);
+    }, function() {
         /* console.log("nie mozna zaladowac leadow");*/
     });
 }
@@ -533,16 +528,14 @@ function send_email() {
 
     execute_given_operation("MOB_LEAD_MENU_WYSLIJ_EMAIL",
         "{\"recpient\":" + '"' + emai_content[1].value + '"' + ",\"subject\":" + '"' + emai_content[2].value + '"' + ",\"tresc\":" + email_text + "}",
-        function (data) {
+        function(data) {
             /*  console.log("success");*/
         },
-        function (data) {
-        },
-        function (data) {
+        function(data) {},
+        function(data) {
             contact_accomplish(window.object.LEADID);
         },
-        function (data) {
-        }
+        function(data) {}
     );
 
 }
@@ -561,24 +554,22 @@ function contact_accomplish(lead_id) {
     } else {
 
         execute_given_operation("LEAD_INBOX_MENU_KONTAKT_WYKONANY", "{\"LEADYLEADID\":" + window.object.LEADID + " }\n",
-            function () {
-                $.when(reload_table_leads("mob_leady?resultsPerPage=100&forceRefresh")).then(function () {
+            function() {
+                $.when(reload_table_leads("mob_leady?resultsPerPage=1000")).then(function() {
                     get_lead_info(window.click_id);
                     $("#assign-error").empty();
                     $("#load_assign_gif").css("display", "none");
                     $("#assign-error").append('<div class="alert alert-success"> Pomyślnie zaznaczono skontatkowanie.</div>');
                 });
             },
-            function () {
+            function() {
                 $("#assign-error").empty();
                 $("#load_assign_gif").css("display", "none");
                 $("#assign-error").append('<div class="alert alert-danger"> Nie mozna uaktualnic statusu</div>');
                 /* console.log("Nie mozna uaktualnic statusu kontaktu");*/
             },
-            function () {
-            },
-            function () {
-            }
+            function() {},
+            function() {}
         );
     }
 }
@@ -594,34 +585,34 @@ function assign_lead() {
     $("#load_assign_gif").css("display", "block");
 
     execute_given_operation("LEAD_INBOX_MENU_DODAJ_FOLDER", "{\"LEADYLEADID\":" + window.object.LEADID + " }\n",
-        function () {
+        function() {
             execute_given_operation("LEAD_INBOX_MENU_UAKT_SATUS", "{\"LEADYLEADID\":" + window.object.LEADID + " }\n",
-                function () {
-                    $.when(reload_table_leads("mob_leady?resultsPerPage=100&forceRefresh")).then(function () {
+                function() {
+                    $.when(reload_table_leads("mob_leady?resultsPerPage=1000")).then(function() {
                         get_lead_info(window.click_id);
                         $("#assign-error").empty();
                         $("#load_assign_gif").css("display", "none");
                         $("#assign-error").append('<div class="alert alert-success"> Pomyślnie przypisano lead do Twojego uzytkownika.</div>');
                     });
                 },
-                function () {
+                function() {
                     $("#assign-error").empty();
                     $("#load_assign_gif").css("display", "none");
                     $("#assign-error").append('<div class="alert alert-danger"> Nie mozna uaktualnic statusu</div>');
                     /* console.log("nie mozna uaktualnic statusu");*/
-                }, function () {
-                }, function () {
-                }
+                },
+                function() {},
+                function() {}
             );
         },
-        function () {
+        function() {
             $("#assign-error").empty();
             $("#load_assign_gif").css("display", "none");
             $("#assign-error").append('<div class="alert alert-danger"> Nie mozna dodac folderu.</div>');
             /* console.log("nie mozna dodać folderu");*/
-        }, function () {
-        }, function () {
-        });
+        },
+        function() {},
+        function() {});
 }
 
 
@@ -631,8 +622,5 @@ function time_difference_number(time_given) {
     var lead_time = new Date(leed_date[0], leed_date[1], leed_date[2],
         leed_date[3], leed_date[4], leed_date[5]);
     var current_time = new Date().getTime();
-    return ((lead_time - current_time) - 2678400000 );
+    return ((lead_time - current_time) - 2678400000);
 }
-
-
-

@@ -35,7 +35,7 @@ function add_serwer() {
             type: 'GET',
             contentType: "text/xml",
             url: "http://www.fastdata.com.pl/kontrahenci/config.xml",
-            success: function (data) {
+            success: function(data) {
                 var url_port = 0;
                 console.log(data);
 
@@ -64,7 +64,7 @@ function add_serwer() {
 
                 }
             },
-            error: function (xhr, status, error) {
+            error: function(xhr, status, error) {
                 $("#server_error").css("display", "block");
             }
         });
@@ -114,7 +114,7 @@ function log_in() {
 
 
     var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function () {
+    xhttp.onreadystatechange = function() {
         if (xhttp.readyState == 4 && xhttp.status == 200) {
             $("#contact_info_load").remove();
             window.test = JSON.parse(xhttp.responseText);
@@ -131,7 +131,7 @@ function log_in() {
             $("#login_error").append("Wprowadzono bledna nazwe uzytkownika lub haslo lub dane serwera. Wprowadz poprawne dane!");
             $("#login_error").css("display", "block");
 
-        } else if (xhttp.status == 500){
+        } else if (xhttp.status == 500) {
             $("#contact_info_load").remove();
             $("#login_error").empty();
             $("#login_error").append("Wystapil bład na serwerze. Skontaktuj sie z administracja.");
@@ -139,8 +139,8 @@ function log_in() {
         }
     };
 
-    xhttp.open("GET", window.header + window.rest_url + "/rin/mob_leady?resultsPerPage=100&forceRefresh", true);
-    console.log(window.header + window.rest_url + "/rin/mob_leady?resultsPerPage=100&forceRefresh");
+    xhttp.open("GET", window.header + window.rest_url + "/rin/mob_leady?resultsPerPage=1000", true);
+    console.log(window.header + window.rest_url + "/rin/mob_leady?resultsPerPage=1000");
     xhttp.setRequestHeader("Authorization", "Basic " + Base64.encode(window.username + ":" + window.password));
     xhttp.send();
 
@@ -152,11 +152,11 @@ function load_start() {
 
 var Base64 = {
 
-// private property
+    // private property
     _keyStr: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=",
 
-// public method for encoding
-    encode: function (input) {
+    // public method for encoding
+    encode: function(input) {
         var output = "";
         var chr1, chr2, chr3, enc1, enc2, enc3, enc4;
         var i = 0;
@@ -181,16 +181,16 @@ var Base64 = {
             }
 
             output = output +
-            this._keyStr.charAt(enc1) + this._keyStr.charAt(enc2) +
-            this._keyStr.charAt(enc3) + this._keyStr.charAt(enc4);
+                this._keyStr.charAt(enc1) + this._keyStr.charAt(enc2) +
+                this._keyStr.charAt(enc3) + this._keyStr.charAt(enc4);
 
         }
 
         return output;
     },
 
-// public method for decoding
-    decode: function (input) {
+    // public method for decoding
+    decode: function(input) {
         var output = "";
         var chr1, chr2, chr3;
         var enc1, enc2, enc3, enc4;
@@ -226,8 +226,8 @@ var Base64 = {
 
     },
 
-// private method for UTF-8 encoding
-    _utf8_encode: function (string) {
+    // private method for UTF-8 encoding
+    _utf8_encode: function(string) {
         string = string.replace(/\r\n/g, "\n");
         var utftext = "";
 
@@ -237,12 +237,10 @@ var Base64 = {
 
             if (c < 128) {
                 utftext += String.fromCharCode(c);
-            }
-            else if ((c > 127) && (c < 2048)) {
+            } else if ((c > 127) && (c < 2048)) {
                 utftext += String.fromCharCode((c >> 6) | 192);
                 utftext += String.fromCharCode((c & 63) | 128);
-            }
-            else {
+            } else {
                 utftext += String.fromCharCode((c >> 12) | 224);
                 utftext += String.fromCharCode(((c >> 6) & 63) | 128);
                 utftext += String.fromCharCode((c & 63) | 128);
@@ -253,8 +251,8 @@ var Base64 = {
         return utftext;
     },
 
-// private method for UTF-8 decoding
-    _utf8_decode: function (utftext) {
+    // private method for UTF-8 decoding
+    _utf8_decode: function(utftext) {
         var string = "";
         var i = 0;
         var c = c1 = c2 = 0;
@@ -266,13 +264,11 @@ var Base64 = {
             if (c < 128) {
                 string += String.fromCharCode(c);
                 i++;
-            }
-            else if ((c > 191) && (c < 224)) {
+            } else if ((c > 191) && (c < 224)) {
                 c2 = utftext.charCodeAt(i + 1);
                 string += String.fromCharCode(((c & 31) << 6) | (c2 & 63));
                 i += 2;
-            }
-            else {
+            } else {
                 c2 = utftext.charCodeAt(i + 1);
                 c3 = utftext.charCodeAt(i + 2);
                 string += String.fromCharCode(((c & 15) << 12) | ((c2 & 63) << 6) | (c3 & 63));
